@@ -1,0 +1,39 @@
+server:
+  port: 8081
+
+spring:
+  application:
+    name: user-manage
+  
+  cloud:
+    # Nacos 作为注册中心的配置项，对应 NacosDiscoveryProperties 配置类
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848 # Nacos 服务器地址
+        service: ${spring.application.name} # 注册到 Nacos 的服务名。默认值为 ${spring.application.name}。
+
+  mail:
+    default-encoding: UTF-8
+    host: smtp.qq.com
+    username: 1765224939@qq.com
+    password: kjyjftcxlhvidahj
+
+  datasource:
+    url: jdbc:mysql://localhost:3306/spider_driver?serverTimezone=Asia/Shanghai
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: 'root'
+    password: '0632'
+  redis:
+    host: localhost
+    port: 6379
+    password: 123321
+
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: true # 驼峰
+
+user-manage:
+  user-avatar-dir: 'E:/spiderDriver/avatar'
+
+
+

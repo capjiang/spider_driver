@@ -1,0 +1,49 @@
+server:
+  port: 8082
+
+spring:
+  application:
+    name: task-manage
+
+  cloud:
+    # Nacos 作为注册中心的配置项，对应 NacosDiscoveryProperties 配置类
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848 # Nacos 服务器地址
+        service: ${spring.application.name} # 注册到 Nacos 的服务名。默认值为 ${spring.application.name}。
+
+  rabbitmq:
+    host: 127.0.0.1
+    port: 5672
+    virtual-host: /
+    username: guest
+    password: guest
+    listener:
+      simple:
+        acknowledge-mode: manual  # 手动应答
+      direct:
+        retry:
+          enabled: true  # 开启重试
+          max-attempts: 3 # 最大重试次数
+          initial-interval: 2000 # 初始间隔时间
+          multiplier: 1.5 # 递增倍数
+          max-interval: 1000 # 最大间隔时间
+  
+  datasource:
+    url: jdbc:mysql://localhost:3306/spider_driver?serverTimezone=Asia/Shanghai
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: 'root'
+    password: '0632'
+  redis:
+    host: localhost
+    port: 6379
+    password: 123321
+
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: true # 驼峰
+
+scrapy:
+  spider-location: 'E:/SpiderDriver/scrapy_spiders'
+  deploy-location: 'E:/SpiderDriver/scrapyTraining/scrapyTraining/spiders'
+  input-location: 'E:/SpiderDriver/scrapy_inputs'

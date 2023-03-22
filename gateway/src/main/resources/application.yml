@@ -1,0 +1,26 @@
+server:
+  port: 8090
+
+spring:
+  application:
+    name: gateway
+
+  cloud:
+    # Nacos 作为注册中心的配置项，对应 NacosDiscoveryProperties 配置类
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848 # Nacos 服务器地址
+        service: ${spring.application.name} # 注册到 Nacos 的服务名。默认值为 ${spring.application.name}。
+
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
+      routes:
+        - id: user_manage
+          uri: lb://user-manage   # 不支持下划线
+          predicates:
+            - Path=/user-manage/**
+          filters:
+            - StripPrefix=1
